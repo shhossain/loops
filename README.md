@@ -1,1 +1,1 @@
-# Create random loops in c
+# Create random loops of C
