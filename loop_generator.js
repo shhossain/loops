@@ -61,7 +61,7 @@ else{
 
 for_loop = "\n<text class='link-danger'>for </text>({};{};{})<br>".format(initial,condition,update) + "{\n<br><text class='link-info'>printf</text>(\"<text class='link-primary'>%d\\t</text>\",i);\n<br>}";
 while_loop = "\n{};<br>\n<text class='link-danger'>while </text>({})".format(initial,condition)+"<br>{\n\n<br><text class='link-info'>printf</text>(\"<text class='link-primary'>%d\\t</text>\",i);\n"+"<br>{};\n".format(update)+"<br>}";
-do_while_loop = "\n{};<br>\n".format(initial)+"<text class='link-danger'>do </text>\n<br>{\n\n<br><text class='link-info'>printf</text>(\"<text class='link-primary'>%d\\t</text>\",i);\n"+"\n{};\n".format(update)+"<br>}"+"<text class='link-danger'>while </text>({});".format(condition);
+do_while_loop = "\n{};<br>\n".format(initial)+"<text class='link-danger'>do </text>\n<br>{\n\n<br><text class='link-info'>printf</text>(\"<text class='link-primary'>%d\\t</text>\",i);\n"+"\n{};\n<br>".format(update)+"<br>}"+"<text class='link-danger'>while </text>({});".format(condition);
 
 return ['<text link-secondary>//for loop</text><br>'+for_loop,'<text link-secondary>//while loop</text><br>'+while_loop,'<text link-secondary>//do while loop</text><br>'+do_while_loop];
 
