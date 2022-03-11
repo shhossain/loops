@@ -60,7 +60,7 @@ let update = "i = i {} <text class='link-primary'>{}</text>";
 if (update_value>0){
 	update = update.format('+',update_value);
 }
-else if (update_value<0){
+else{
 	update = update.format('',update_value);
 }
 
@@ -82,6 +82,9 @@ const content = document.querySelector('#content')
 // console.log(btn,count);
 btn.addEventListener('click',create_loop);
 $(count).on('keypress',e=>e.which==13?create_loop():null)
+$(document).on('keypress',e=>e.which==13?create_loop():null)
+$(document).on('keypress',e=>e.key>=0?count.value+=e.key:null)
+
 
 function create_loop() {
 
