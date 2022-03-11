@@ -9,6 +9,15 @@ class random{
 	}
 }
 
+function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+}
+
 // let random = new random()
 
 
@@ -92,9 +101,11 @@ function copy_to_clipboard() {
 	let copyText = $('#content').text()
 	navigator.clipboard.writeText(copyText) 
   $('#copy').text("Copied")
+  
 }
 
 function create_file(){
+	$('#copy').remove()
 	$('.container.py-5').append(`<button type="button" id="copy" class="btn btn-secondary">Copy</button>`)
 
 	let top_code = `<text class="link-danger">#include</text> 
@@ -116,6 +127,7 @@ function create_file(){
 function create_loop() {
 
 	$('footer').remove();
+	$('#copy').remove()
 	// console.log(position);
 
 	let many = parseInt(count.value);
