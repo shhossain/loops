@@ -27,11 +27,17 @@ function get_random(){
 	return random.randint(-100,100);
 }
 
+function get_update_val(){
+	u = random.randint(-5,5)
+	if (u == 0) {return get_update_val()}
+	else {return u}
+}
+
 
 function get_loops() {
 
 let initial_value = get_random();
-let update_value = random.randint(-5,5);
+let update_value = get_update_val();
 
 let c = 10*update_value;
 let condition;
@@ -57,9 +63,7 @@ if (update_value>0){
 else if (update_value<0){
 	update = update.format('',update_value);
 }
-else {
-get_loops();
-}
+
 // console.log('con',condition);
 
 for_loop = "\n<text class='link-danger'>for </text>({};{};{})<br>".format(initial,condition,update) + "{\n<br><text class='link-info'>printf</text>(\"<text class='link-primary'>%d\\t</text>\",i);\n<br>}";
