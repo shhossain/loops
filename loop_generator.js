@@ -85,16 +85,25 @@ let all_loops = ""
 btn.addEventListener('click',create_loop);
 $(count).on('keypress',e=>e.which==13?create_loop():null)
 
-$('#new-file').click(create_file)
+$('#newfile').click(create_file)
+$(document).on('click','#copy',copy_to_clipboard)
+
+function copy_to_clipboard() {
+	let copyText = $('#content').text()
+	navigator.clipboard.writeText(copyText) 
+  $('#copy').text("Copied")
+}
 
 function create_file(){
+	$('.container.py-5').append(`<button type="button" id="copy" class="btn btn-secondary">Copy</button>`)
+
 	let top_code = `<text class="link-danger">#include</text> 
 	<text class="link-warning">&lt;stdio.h&gt;</text><br>
 	<br><text class="link-primary">int </text><text class="link-success">main</text>()<br>
 	{ <br>{}<br>{}<br>  <text class="link-danger">return </text><text class="link-primary">0;</text><br>}`
 
 	let init = "<text class='link-primary'>int</text> i;";
-	top_code = top_code.format(init,all_loops);
+	top_code = top_code.format(init,all_loops.replaceAll("int","").replaceAll("prf","printf"));
 
 	$('#content').html(top_code);
 	$("body").animate({scrollTop: $(window).scrollTop(0)}, 500);
@@ -126,10 +135,9 @@ function create_loop() {
 		});
 	}
 	// console.log('inline');
-	// $(document).find('#new-file').css('display','inline');
+	$('#con').css('display','block');
 
 
 
 }
-
 
