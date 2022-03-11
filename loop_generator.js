@@ -27,42 +27,42 @@ function get_random(){
 	return random.randint(-100,100);
 }
 
-function get_update_val(){
-	u = random.randint(-5,5)
-	if (u == 0) {return get_update_val()}
-	else {return u}
-}
-
 
 function get_loops() {
 
 let initial_value = get_random();
-let update_value = get_update_val();
 
-let c = 10*update_value;
-let condition;
-if (update_value>0){
-	let n = initial_value + random.randint(c,c+10);
-	let a = random.choice(smaller_than);
-	// console.log(n,a);
-	condition = "i {} {}".format(a,n);
+function get_con_val(){
+	let con_val = random.randint(-100,100)
+	let diff = Math.abs(initial_value - con_val)
+
+	if (diff<10){
+		return get_con_val()
+	}
+	else{
+		return con_val
+	}
 }
-else{
-	let n = initial_value - random.randint(c,c+10);
-	let a = random.choice(greater_than);
-	// console.log(n,a);
-	condition = "i {} <text class='link-primary'>{}</text>".format(a,n);
-}
+
+	let con_value = get_con_val()
+
+	let update_value = Math.floor(Math.abs(initial_value - con_value)/10)
+	let sign;
+	let sign2;
+	if (initial_value<con_value){
+		sign = random.choice(smaller_than)
+		sign2 = '+'
+	}
+	else{
+		sign = random.choice(greater_than)
+		sign2 = '-'
+	}
+
+	let condition = "i {}<text class='link-primary'>{}</text>".format(sign,con_value);
+
 
 let initial = "<text class='link-info'>int</text> i = <text class='link-primary'>{}</text>".format(initial_value);
-let update = "i = i {} <text class='link-primary'>{}</text>";
-
-if (update_value>0){
-	update = update.format('+',update_value);
-}
-else{
-	update = update.format('',update_value);
-}
+let update = "i = i {} <text class='link-primary'>{}</text>".format(sign2,update_value)
 
 // console.log('con',condition);
 
@@ -79,11 +79,29 @@ const count = document.querySelector('#ct');
 const btn = document.querySelector('#btn');
 const content = document.querySelector('#content')
 
+let all_loops = ""
+
 // console.log(btn,count);
 btn.addEventListener('click',create_loop);
 $(count).on('keypress',e=>e.which==13?create_loop():null)
-$(document).on('keypress',e=>e.which==13?create_loop():null)
 
+$('#new-file').click(create_file)
+
+function create_file(){
+	let top_code = `<text class="link-danger">#include</text> 
+	<text class="link-warning">&lt;stdio.h&gt;</text><br>
+	<br><text class="link-primary">int </text><text class="link-success">main</text>()<br>
+	{ <br>{}<br>{}<br>  <text class="link-danger">return </text><text class="link-primary">0;</text><br>}`
+
+	let init = "<text class='link-primary'>int</text> i;";
+	top_code = top_code.format(init,all_loops);
+
+	$('#content').html(top_code);
+	$("body").animate({scrollTop: $(window).scrollTop(0)}, 500);
+
+
+
+}
 
 
 function create_loop() {
@@ -100,12 +118,15 @@ function create_loop() {
 		// console.log('loops',loops);
 		loops.forEach((item,index)=>{
 			// content.append('\n',item);
-
-			$('#content').append(`<text link-secondary>//${i}</text><br><div>${item}</div><br>`);
+			let a = `<text link-secondary>//${i}</text><br><div>${item}</div><br>`;
+			$('#content').append(a);
+			all_loops+=a;
 			// content.appendChild();
 
 		});
 	}
+	// console.log('inline');
+	// $(document).find('#new-file').css('display','inline');
 
 
 
