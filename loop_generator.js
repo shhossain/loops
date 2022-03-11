@@ -81,6 +81,7 @@ const content = document.querySelector('#content')
 
 // console.log(btn,count);
 btn.addEventListener('click',create_loop);
+$(count).on('keypress',e=>e.which==13?create_loop():null)
 
 function create_loop() {
 
